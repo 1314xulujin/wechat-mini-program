@@ -1,0 +1,5 @@
+.hr{
+  height: 1px;
+  background-color: #ccc;
+  margin: 20px 0;
+}

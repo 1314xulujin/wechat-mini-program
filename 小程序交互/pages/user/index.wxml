@@ -1,0 +1,7 @@
+<open-data class="avatar" type="userAvatarUrl" default-text="获取头像失败"></open-data>
+<open-data type="userNickName" class="nickname"/>
+<open-data type="groupName"  />
+
+<button bindtap="shake">震动一下</button>
+
+<button bindtap="getData">获取数据</button>

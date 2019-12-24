@@ -1,0 +1,125 @@
+开发小程序流程:
+        1.先注册小程序开发者账户:  https://mp.weixin.qq.com
+
+        2.使用对应的开发工具进行小程序开发 - (官方提供微信公众平台开发工具)
+
+        3.具体开发内容 (了解项目开发规范 指南- 框架 + 组件 + API)
+
+        4.微信小程序规范(审核规则)
+
+        5.微信小程序的运营规则 : https://developers.weixin.qq.com/miniprogram/product/
+
+        6.发布流程
+
+----------------------------------------------------------------------------------------------------------
+微信小程序代码:
+    托管微信服务器上的 , 每次写完,都是需要提交到微信服务器, 并且审核通过后才可以使用
+
+   微信项目结构文件 :
+        微信小程序其实就是一款微信封装好的前端框架,内嵌在微信中使用的网页
+        WXML(html内容)  +  WXSS(css 样式) + JS(js交互) + JSON(配置文件)
+
+   项目结构解释:
+        app.js  整个小程序的入口文件
+        app.wxss 整个小程序的全局样式
+        app.json 小程序的全局配置文件
+        project.config.json 项目详情和基本配置
+        sitemap.json  用于配置小程序哪些页面允许或拒绝微信搜索索引
+
+
+        pages : 存放小程序所有页面
+        utils : 存放一些公共的js函数库
+
+
+
+    概念性:
+        APPID : 小程序的应用ID 唯一标识符
+        APPSecret : 小程序的秘钥 ,一般用于调用一些私密接口(获取用户数据, 支付..)
+
+----------------------------------------------------------------------------------------------
+全局配置:  https://developers.weixin.qq.com/miniprogram/dev/reference/configuration/app.html
+
+    pages:用于指定小程序由哪些页面组成，每一项都对应一个页面的 路径（含文件名） 信息。
+        数组的第一项代表小程序的初始页面（首页）。小程序中新增/减少页面，都需要对 pages 数组进行修改。
+        每个页面由 : wxss , wxml , js , json 构成
+
+        rpx（responsive pixel）: 可以根据屏幕宽度进行自适应 ,规定屏幕宽为750rpx
+
+        iphone6    375px  ==  750rpx    1rpx = 0.5px
+        iphone6 plus 414px == 750rpx    1rpx = 0.552px
+
+        注意: 小程序中没有DOM操作
+
+    window:用于设置小程序的状态栏、导航条、标题、窗口背景色。
+
+    tabBar : 设置底部或者顶部的导航栏样式
+
+   ----------------------------------------------------------------------------------
+   事件交互部分:
+touchstart	手指触摸动作开始	
+touchmove	手指触摸后移动	
+touchcancel	手指触摸动作被打断，如来电提醒，弹窗	
+touchend	手指触摸动作结束	
+tap	手指触摸后马上离开	
+longpress	手指触摸后，超过350ms再离开，如果指定了事件回调函数并触发了这个事件，tap事件将不被触发	1.5.0
+longtap	手指触摸后，超过350ms再离开（推荐使用longpress事件代替）	
+
+transitionend	会在 WXSS transition 或 wx.createAnimation 动画结束后触发	
+animationstart	会在一个 WXSS animation 动画开始时触发	
+animationiteration	会在一个 WXSS animation 一次迭代结束时触发	
+animationend	会在一个 WXSS animation 动画完成时触发	
+touchforcechange	在支持 3D Touch 的 iPhone 设备，重按时会触发 
+
+
+-------------------------------------------------------------------------
+使用小程序网络接口要求 :
+    1.请求服务器必须域名备案
+    2.请求协议必须是https协议
+    3.请求必须添加到微信小程序平台 , 将请求的地址的域名添加为安全信任域名
+
+------------------------------------------------------------------------
+小程序API分类 :
+    1.基础 ： 网络, 界面 , 路由 , 数据缓存 ,媒体播放 , 画布 , 文件
+
+    2.授权 : 开发接口 , 获取用户的基本信息(昵称 , 头像 , 运动步数...)
+   
+    3.商户 : 支付  ,  获取一些用户比较隐私的数据(卡券 , 手机号码...)
+
+
+
+/**小程序中使用微信登录流程 **/
+1.在小程序中调用wx.login() 接口 , 获取code  => 取号 (五分钟有效期)
+
+2.把获取的code 发给自己服务器(wx.request())
+接口: https://s.lby.link/login  登录接口
+    必须传的参数 : 
+        appid: 小程序的应用唯一ID标识 
+        code:刚才获取的号
+        secret: 小程序应用的秘钥
+
+成功返回 : {
+    "session_key":"Zyy\/8ZsZEzUTGPkcQCKpFA==",
+    "expires_in":7200,
+    "openid":"oA1n80BzW_vAcLxcVwj9WF-Snre0"
+    }
+
+  openid  = > 就是每一个微信用于账号针对于每一个小程序,小游戏,公众号的一个唯一标识码
+    用户A 对于 小程序A = > openidA
+    用户A 对于 小程序B = > openidB
+    用户A 对于 公众号A = > openidC
+
+
+获取用户运动数据: https://s.lby.link/run 
+        appid: 小程序应用app id
+        sessionKey: 登录后的session-key
+        encryptedData:加密后的数据
+        iv:iv加密向量标识符
+
+
+假设已经登录成功了, 可以获取用户的步数
+可以通过wx.getWeRunData() 方法获取加密后的运动数据
+
+解密: 
+    1.可以把加密的数据 ,全部发到自己服务器 ,解密
+
+

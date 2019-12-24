@@ -1,0 +1,8 @@
+/* pages/index/index.wxss */
+.title{
+  text-align: center;
+  width: 750rpx;
+  line-height: 100px;
+  background-color: red;
+  color: #fff;
+}

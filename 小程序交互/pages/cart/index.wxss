@@ -1,0 +1,13 @@
+swiper-item image{
+  height: 150px;
+}
+.one{
+  background-color: #f9f9f9;
+}
+.two{
+   background-color: orangered;
+}
+
+.three{
+  background: bisque;
+}

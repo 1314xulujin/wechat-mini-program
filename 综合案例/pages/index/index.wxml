@@ -1,0 +1,93 @@
+<!-- 顶部搜索条 -->
+<view class="search-bar">
+  <!-- 定位图标 -->
+  <view class="search-bar-position">
+    <image src="../../assets/icons/position.png"></image>
+  </view>
+  <!-- 输入框 -->
+  <view class="search-bar-input">
+    <image src="../../assets/icons/search.png"></image>
+    <text>奇异果</text>
+  </view>
+  <!-- 扫一扫 -->
+  <view class="search-bar-scan">
+    <image bindtap="scanCode" src="../../assets/icons/scan.png"></image>
+  </view>
+</view>
+<!-- 轮播图 -->
+<view class="banner">
+  <swiper indicator-dots="{{options.indicatorDots}}" autoplay="{{options.autoplay}}" circular="{{options.circular}}" interval="{{options.interval}}" indicator-active-color="{{options.indicatorColor}}">
+    <block wx:for="{{bannerList}}" wx:key="*this">
+      <swiper-item>
+        <image src="{{item.imgUrl}}"></image>
+      </swiper-item>
+    </block>
+  </swiper>
+</view>
+<!-- 系统消息 -->
+<view class="system-tips">
+  <image src="../../assets/icons/trumpet.png"></image>
+  <swiper autoplay="{{options.autoplay}}" interval="{{options.interval}}" circular="{{options.circular}}" indicator-active-color="{{options.indicatorColor}}" vertical="true">
+    <block wx:for="{{noticeList}}" wx:key="*this">
+      <swiper-item>
+        <text>{{item.title}}</text>
+      </swiper-item>
+    </block>
+  </swiper>
+</view>
+<!-- 商品分类 -->
+<view class="goodsSorts">
+  <ul>
+    <li wx:for="{{goodsSorts}}" wx:key="key">
+      <view style="background:#{{item.style}};">
+        <image src="{{item.imgSrc}}"></image>
+      </view>
+      <p>{{item.text}}</p>
+    </li>
+  </ul>
+</view>
+
+<!-- 今日王牌大赏 -->
+<view class='page_bd_scrollx_section'>
+  <view class='scrollx_section_title'>
+    <view class='scrollx_section_title_left left'>
+      <image src="../../assets/icons/crown.png" class='left' />
+      <p class="left">今日王牌大赏</p>
+    </view>
+    <view class='scrollx_section_title_right right'>
+      <p class="left">更多</p>
+      <a class="left"></a>
+    </view>
+  </view>
+  <scroll-view scroll-x class='scrollx_section_content'>
+    <block wx:for="{{scrollXList}}" wx:key="index" wx:for-index="index">
+      <view class="scrollx_section_content_item">
+        <view class="scrollx_section_item_wrapper">
+          <view class="view_wrapper_image">
+            <image src="{{item.image}}" />
+          </view>
+          <view class="view_wrapper_intro">
+            <view class="wrapper_intro_title">
+              <text>{{item.name}}</text>
+              <text>{{item.secName}}</text>
+            </view>
+            <view class="wrapper_intro_content left">
+              <text>{{item.leftTitle}}</text>
+              <text>{{item.leftSecTitle}}</text>
+            </view>
+            <view class="wrapper_intro_content right">
+              <text>{{item.rightTitle}}</text>
+              <text>{{item.rightSecTitle}}</text>
+            </view>
+            <view class="wrapper_intro_price">
+              <a>￥{{item.price}}</a>
+              <a>/{{item.unit}}</a>
+              <a id="{{item.id}}" bindtap="addInCart">+</a>
+            </view>
+          </view>
+        </view>
+      </view>
+    </block>
+
+  </scroll-view>
+</view>

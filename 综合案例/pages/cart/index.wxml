@@ -1,0 +1,5 @@
+<view wx:for="{{myCartList}}" wx:key="key">
+  <image src="{{item.image}}"></image>
+  <text>{{item.name}}</text>
+  <text>{{item.price}}</text>
+</view>

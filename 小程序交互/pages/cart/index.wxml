@@ -1,0 +1,20 @@
+<!-- 使用内置的 swiper 轮播图 -->
+<swiper 
+  indicator-dots="{{swiperOption.indicatorDots}}"
+  indicator-color="{{swiperOption.indicatorColor}}"
+  indicator-active-color="{{swiperOption.indicatorActiveColor}}"
+  autoplay="{{swiperOption.autoplay}}"
+  interval="{{swiperOption.interval}}"
+  circular="{{swiperOption.circular}}"
+  vertical="{{swiperOption.vertical}}"
+>
+    <swiper-item wx:for="{{swiperList}}" wx:key="index">
+      <image src="{{item.imgUrl}}"></image>  
+    </swiper-item>
+</swiper>
+
+<icon type="success"></icon>
+<rich-text nodes="{{nodes}}" bindtap="tap"></rich-text>
+
+
+<map id="map" longitude="113.324520" latitude="23.099994" scale="14" controls=" s}}" bindcontroltap="controltap" markers="{{markers}}" bindmarkertap="markertap" polyline="{{polyline}}" bindregionchange="regionchange" show-location style="width: 100%; height: 300px;"></map>
